@@ -9,7 +9,7 @@ import { Form } from "@/components/ui/form"
 import CustomFormField from "../CustomFormField"
 import SubmitButton from "../SubmitButton"
 import { useState } from "react"
-import { AppointmentFormValidation, CreateAppointmentSchema, getAppointmentSchema } from "@/lib/validation"
+import { getAppointmentSchema } from "@/lib/validation"
 import { useRouter } from "next/navigation"
 import { createUser } from "@/lib/actions/patient.actions"
 import { FormFieldType } from "./PatientForm"
@@ -25,7 +25,7 @@ const AppointmentForm = ({ userId, patientId, type, appointment, setOpen }:
         patientId: string;
         type: "create" | "cancel" | "schedule";
         appointment?: Appointment;
-        setOpen: (open: boolean) => void;
+        setOpen?: (open: boolean) => void;
     }) => {
     
     const router = useRouter;
@@ -82,12 +82,12 @@ const AppointmentForm = ({ userId, patientId, type, appointment, setOpen }:
                 }
 
                 // Send to backend.
-                const appointment = await createAppointment(appointmentData);
+                const newAppointment = await createAppointment(appointmentData);
 
                 // If the form already exists, reset the form.
-                if (appointment) {
+                if (newAppointment) {
                     form.reset();
-                    router.push(`/patients/${userId}/new-appointment/success?appointmentId=${appointment.$id}`);
+                    router.push(`/patients/${userId}/new-appointment/success?appointmentId=${newAppointment.$id}`);
                 }
             }
 

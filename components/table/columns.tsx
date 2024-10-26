@@ -58,13 +58,13 @@ export const columns: ColumnDef<Appointment>[] = [
         accessorKey: "primaryPhysician",
         header: () => 'Doctor',
         cell: ({ row }) => {
-        const doctor = Doctors.find((doc) => doc.name === row.oroginal.primaryPhysician)
+        const doctor = Doctors.find((doc) => doc.name === row.original.primaryPhysician)
 
         return (
             <div className="flex items-center gap-3">
                 <Image
-                    src={doctor?.image}
-                    alt={doctor.name}
+                    src={doctor?.image!}
+                    alt="doctor"
                     width={100}
                     height={100}
                     className="size-8"
@@ -79,7 +79,7 @@ export const columns: ColumnDef<Appointment>[] = [
     // Actions doctors can do on specific appointments.
     {
         id: "actions",
-        header: () => <div className="pl-4">Actions</div>
+        header: () => <div className="pl-4">Actions</div>,
         cell: ({ row: { original: data } }) => {
             return(
                 <div className="flex gap-1">

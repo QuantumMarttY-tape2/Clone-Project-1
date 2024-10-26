@@ -77,7 +77,7 @@ export const getRecentAppointmentList = async () => {
 
 export const updateAppointment = async ({ appointmentId, userId, appointment, type}: UpdateAppointmentParams) => {
     try {
-        const updatedAppointment = await databases.update.updateDocument(
+        const updatedAppointment = await databases.updateDocument(
             DATABASE_ID!,
             APPOINTMENT_COLLECTION_ID!,
             appointmentId,
@@ -106,7 +106,7 @@ export const updateAppointment = async ({ appointmentId, userId, appointment, ty
 export const sendSMSNotification = async (userId: string, content: string) => {
     try {
         const message = await messaging.createSms(
-            ID.unique,
+            ID.unique(),
             content,
             [],
             [userId]

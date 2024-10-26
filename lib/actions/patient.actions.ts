@@ -1,8 +1,14 @@
-import { ID, Query } from "node-appwrite"
-import { BUCKET_ID, DATABASE_ID, databases, ENDPOINT, PATIENT_COLLECTION_ID, PROJECT_ID, users } from "../appwrite.config"
+import { ID, Query, InputFile } from "node-appwrite"
+import {
+    BUCKET_ID,
+    DATABASE_ID,
+    databases,
+    storage,
+    ENDPOINT,
+    PATIENT_COLLECTION_ID,
+    PROJECT_ID,
+    users } from "../appwrite.config"
 import { parseStringify } from "../utils"
-
-import { InputFile } from "node-appwrite/file"
 
 export const createUser = async (user: CreateUserParams) => {
     try{
@@ -47,7 +53,7 @@ export const getPatient = async (userId: string) => {
     }
 }
 
-export const registerPatient = async ({ identificationDocument, ...patient }: RegisterUserParams => {
+export const registerPatient = async ({ identificationDocument, ...patient }: RegisterUserParams) => {
     try {
         let file;
 
@@ -75,4 +81,4 @@ export const registerPatient = async ({ identificationDocument, ...patient }: Re
     } catch(error) {
         console.log(error)
     }
-})
+}

@@ -33,7 +33,7 @@ import FileUploader from "../FileUploader"
 
 
 
-const RegisterForm = ({ user }: { user: user }) => {
+const RegisterForm = ({ user }: { user: User }) => {
     const router = useRouter;
 
     // Define isLoading.
@@ -70,16 +70,42 @@ const RegisterForm = ({ user }: { user: user }) => {
         }
 
         try {
-            const patientData = {
-                ...values,
+            // const patientData = {
+            //     ...values,
+            //     userId: user.$id,
+            //     birthDate: new Date(values.birthDate),
+            //     identificationDocument: formData,
+            // }
+
+            const patient = {
                 userId: user.$id,
+                name: values.name,
+                email: values.email,
+                phone: values.phone,
                 birthDate: new Date(values.birthDate),
-                identificationDocument: formData,
-            }
+                gender: values.gender,
+                address: values.address,
+                occupation: values.occupation,
+                emergencyContactName: values.emergencyContactName,
+                emergencyContactNumber: values.emergencyContactNumber,
+                primaryPhysician: values.primaryPhysician,
+                insuranceProvider: values.insuranceProvider,
+                insurancePolicyNumber: values.insurancePolicyNumber,
+                allergies: values.allergies,
+                currentMedication: values.currentMedication,
+                familyMedicalHistory: values.familyMedicalHistory,
+                pastMedicalHistory: values.pastMedicalHistory,
+                identificationType: values.identificationType,
+                identificationNumber: values.identificationNumber,
+                identificationDocument: values.identificationDocument
+                  ? formData
+                  : undefined,
+                privacyConsent: values.privacyConsent,
+              };
 
-            const patient = await registerPatient(patientData);
+            const newPatient = await registerPatient(patient);
 
-            if (patient) router.push(`/patients/${user.$id}/new-appointment`)
+            if (newPatient) router.push(`/patients/${user.$id}/new-appointment`)
         } catch (error) {
             console.log(error);
         }
@@ -158,14 +184,14 @@ const RegisterForm = ({ user }: { user: user }) => {
                                     className="flex h-11 gap-6 xl:justify-between"
                                     onValueChange={field.onChange}
                                     defaultValue={field.value}>
-                                        {GenderOptions.map((option) => 
-                                            <div key={option} className="radio-group">
-                                                <RadioGroupItem value={option} id={option} />
-                                                <Label htmlFor={option} className="cursor-pointer">
-                                                    {option}
-                                                </Label>
-                                            </div>
-                                        )}
+                                    {GenderOptions.map((option, i) => (
+                                        <div key={option + i} className="radio-group">
+                                            <RadioGroupItem value={option} id={option} />
+                                            <Label htmlFor={option} className="cursor-pointer">
+                                            {option}
+                                            </Label>
+                                        </div>
+                                    ))}
                                 </RadioGroup>
                             </FormControl>
                         )}

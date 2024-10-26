@@ -30,7 +30,7 @@ export default async function NewAppointment({ params: { userId }}: SearchParamP
           <AppointmentForm
             type="create"
             userId={userId}
-            patientId={patient.$id}
+            patientId={patient?.$id}
           />
 
           {/* Copyright sign. */}

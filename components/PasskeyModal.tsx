@@ -23,7 +23,7 @@ import {
     InputOTPSeparator,
     InputOTPSlot,
   } from "@/components/ui/input-otp"
-import { encryptKey } from "@/lib/utils";
+import { decryptKey, encryptKey } from "@/lib/utils";
   
 
 
@@ -55,7 +55,7 @@ const PasskeyModal = () => {
                 router.push('/admin');
             }
             else {
-                setOpen{true};
+                setOpen(true);
             }
         }
     }, [encryptedKey])
@@ -72,7 +72,7 @@ const PasskeyModal = () => {
             setOpen(false);
         }
         else {
-            setError{"Invalid passkey. Please try again."}
+            setError("Invalid passkey. Please try again.")
         }
     }
 
